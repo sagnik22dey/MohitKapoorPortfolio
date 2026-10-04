@@ -102,6 +102,18 @@ async def handle_contact_message(payload: ContactForm):
         }
     )
 
+@app.get("/health")
+async def health_check():
+    """
+    Health check endpoint for Railway container deployment monitoring.
+    """
+    return JSONResponse(
+        content={
+            "status": "healthy",
+            "service": "mohit-kapoor-portfolio"
+        }
+    )
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
