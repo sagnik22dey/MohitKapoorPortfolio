@@ -606,11 +606,11 @@
     }
 
     .book-face.front {
-      transform: rotateY(0deg);
+      transform: rotateY(0deg) translateZ(12px);
     }
 
     .book-face.back {
-      transform: rotateY(180deg);
+      transform: rotateY(180deg) translateZ(12px);
     }
 
     .book-face img {
@@ -628,6 +628,29 @@
       height: 100%;
       background: linear-gradient(90deg, #d3c4b0 0%, #ede6db 100%);
       transform: rotateY(-90deg) translateZ(12px);
+    }
+
+    .book-pages-edge {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 24px;
+      height: 100%;
+      background: repeating-linear-gradient(90deg, #f8f6f0 0px, #f8f6f0 2px, #e8e4dc 3px, #f8f6f0 4px);
+      transform: rotateY(90deg) translateZ(12px);
+    }
+
+    .book-3d-hint {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 500;
+      padding: 8px 16px;
+      background: #ffffff;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-subtle);
     }
 
     .book-interactive-controls {
@@ -1701,12 +1724,7 @@
                 <div class="book-face back">
                   <img src="static/images/the-hidden-lens-back.png" alt="The Hidden Lens Back Cover">
                 </div>
-              </div>
-
-              <div class="book-interactive-controls">
-                <button type="button" class="btn-toggle-cover active" id="btn-show-front">Front Cover</button>
-                <button type="button" class="btn-toggle-cover" id="btn-show-back">Back Cover &amp; Blurb</button>
-                <button type="button" class="btn-toggle-cover" id="btn-toggle-3d-tilt">Auto-Tilt 3D</button>
+                <div class="book-pages-edge"></div>
               </div>
             </div>
 
@@ -1748,8 +1766,7 @@
               </div>
 
               <div class="book-actions-group">
-                <button class="btn-primary" onclick="openSampleModal()">Request Sample Chapter</button>
-                <a href="#contact" class="btn-secondary" onclick="setContactTopic('The Hidden Lens - Book Bulk Purchase')">Bulk Corporate Order Inquiry</a>
+                <a href="#contact" class="btn-primary" onclick="setContactTopic('The Hidden Lens - Book Bulk Purchase')">Bulk Corporate Order Inquiry</a>
               </div>
 
               <div class="book-inquiry-box">
@@ -2097,26 +2114,6 @@
     </footer>
   </div>
 
-  <div class="modal-overlay" id="sample-modal">
-    <div class="modal-card">
-      <button class="modal-close-btn" onclick="closeSampleModal()">&times;</button>
-      <h3 style="font-family:'Playfair Display',serif; font-size:24px; margin-bottom:8px; color:var(--text-main);">Request Sample Chapter</h3>
-      <p style="font-size:14px; color:var(--text-muted); margin-bottom:20px;">
-        Read the preface and Chapter 1: <em>"Anatomy of the Blind Spot: How the Mind Shortcuts Reality"</em> from <strong>The Hidden Lens</strong> by Mohit Kapoor.
-      </p>
-      <form onsubmit="handleSampleDownload(event)">
-        <div class="form-group">
-          <label class="form-label">Full Name</label>
-          <input type="text" class="form-input" id="sample-name" placeholder="Your Name" required>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Email Address</label>
-          <input type="email" class="form-input" id="sample-email" placeholder="Your Email" required>
-        </div>
-        <button type="submit" class="btn-primary" style="width:100%; padding:12px;">Get Reading Sample</button>
-      </form>
-    </div>
-  </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script>
@@ -2269,94 +2266,106 @@
     });
 
     const bookElem = document.getElementById('interactive-book-3d');
-    const btnShowFront = document.getElementById('btn-show-front');
-    const btnShowBack = document.getElementById('btn-show-back');
-    const btnToggleAutoTilt = document.getElementById('btn-toggle-3d-tilt');
 
     let currentRotationY = -18;
     let currentRotationX = 8;
-    let autoTiltActive = false;
+    let autoTiltActive = true;
     let autoTiltTimer = null;
+    let step = 0;
+    let resumeTimeout = null;
 
     function updateBookTransform() {
-      bookElem.style.transform = `rotateX(${currentRotationX}deg) rotateY(${currentRotationY}deg)`;
+      if (bookElem) {
+        bookElem.style.transform = `rotateX(${currentRotationX}deg) rotateY(${currentRotationY}deg)`;
+      }
     }
-    updateBookTransform();
+
+    function startAutoTilt() {
+      if (autoTiltTimer) return;
+      autoTiltActive = true;
+      if (bookElem) bookElem.style.transition = 'transform 0.05s linear';
+      autoTiltTimer = setInterval(() => {
+        step += 0.02;
+        currentRotationY = Math.sin(step) * 45;
+        currentRotationX = Math.cos(step * 0.7) * 12;
+        updateBookTransform();
+      }, 30);
+    }
 
     function stopAutoTilt() {
-      if (autoTiltActive) {
-        autoTiltActive = false;
-        btnToggleAutoTilt.classList.remove('active');
+      if (autoTiltTimer) {
         clearInterval(autoTiltTimer);
         autoTiltTimer = null;
       }
     }
 
-    btnShowFront.addEventListener('click', () => {
-      stopAutoTilt();
-      btnShowFront.classList.add('active');
-      btnShowBack.classList.remove('active');
-      currentRotationY = -18;
-      currentRotationX = 6;
-      updateBookTransform();
-    });
-
-    btnShowBack.addEventListener('click', () => {
-      stopAutoTilt();
-      btnShowBack.classList.add('active');
-      btnShowFront.classList.remove('active');
-      currentRotationY = 162;
-      currentRotationX = 6;
-      updateBookTransform();
-    });
-
-    btnToggleAutoTilt.addEventListener('click', () => {
-      autoTiltActive = !autoTiltActive;
-      btnToggleAutoTilt.classList.toggle('active', autoTiltActive);
-      if (autoTiltActive) {
-        btnShowFront.classList.remove('active');
-        btnShowBack.classList.remove('active');
-        let step = 0;
-        autoTiltTimer = setInterval(() => {
-          step += 0.03;
-          currentRotationY = Math.sin(step) * 45;
-          currentRotationX = Math.cos(step * 0.7) * 12;
-          updateBookTransform();
-        }, 30);
-      } else {
-        stopAutoTilt();
-        btnShowFront.classList.add('active');
-        currentRotationY = -18;
-        currentRotationX = 8;
-        updateBookTransform();
-      }
-    });
+    updateBookTransform();
+    startAutoTilt();
 
     let isDragging = false;
     let startX = 0;
     let startY = 0;
 
-    bookElem.addEventListener('mousedown', (e) => {
+    function onDragStart(clientX, clientY) {
       stopAutoTilt();
+      if (resumeTimeout) clearTimeout(resumeTimeout);
       isDragging = true;
-      startX = e.clientX;
-      startY = e.clientY;
-    });
+      startX = clientX;
+      startY = clientY;
+      if (bookElem) bookElem.style.transition = 'none';
+    }
+
+    function onDragMove(clientX, clientY) {
+      if (!isDragging) return;
+      const deltaX = clientX - startX;
+      const deltaY = clientY - startY;
+      currentRotationY += deltaX * 0.5;
+      currentRotationX = Math.max(-60, Math.min(60, currentRotationX - deltaY * 0.4));
+      updateBookTransform();
+      startX = clientX;
+      startY = clientY;
+    }
+
+    function onDragEnd() {
+      if (!isDragging) return;
+      isDragging = false;
+      if (bookElem) bookElem.style.transition = 'transform 0.4s ease-out';
+      if (autoTiltActive) {
+        if (resumeTimeout) clearTimeout(resumeTimeout);
+        resumeTimeout = setTimeout(() => {
+          if (autoTiltActive && !isDragging) {
+            step = Math.asin(Math.max(-1, Math.min(1, currentRotationY / 45))) || 0;
+            startAutoTilt();
+          }
+        }, 1500);
+      }
+    }
+
+    if (bookElem) {
+      bookElem.addEventListener('mousedown', (e) => {
+        onDragStart(e.clientX, e.clientY);
+      });
+
+      bookElem.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 1) {
+          onDragStart(e.touches[0].clientX, e.touches[0].clientY);
+        }
+      }, { passive: true });
+    }
 
     window.addEventListener('mousemove', (e) => {
-      if (!isDragging) return;
-      const deltaX = e.clientX - startX;
-      const deltaY = e.clientY - startY;
-      currentRotationY += deltaX * 0.4;
-      currentRotationX -= deltaY * 0.3;
-      updateBookTransform();
-      startX = e.clientX;
-      startY = e.clientY;
+      onDragMove(e.clientX, e.clientY);
     });
 
-    window.addEventListener('mouseup', () => {
-      isDragging = false;
-    });
+    window.addEventListener('mouseup', onDragEnd);
+
+    window.addEventListener('touchmove', (e) => {
+      if (isDragging && e.touches.length === 1) {
+        onDragMove(e.touches[0].clientX, e.touches[0].clientY);
+      }
+    }, { passive: true });
+
+    window.addEventListener('touchend', onDragEnd);
 
     const authorCard = document.getElementById('tilt-author-card');
     if (authorCard) {
@@ -2425,20 +2434,6 @@
         btn.disabled = false;
         btn.innerText = 'Send Inquiry';
       }
-    }
-
-    function openSampleModal() {
-      document.getElementById('sample-modal').style.display = 'flex';
-    }
-
-    function closeSampleModal() {
-      document.getElementById('sample-modal').style.display = 'none';
-    }
-
-    function handleSampleDownload(e) {
-      e.preventDefault();
-      alert('Sample Chapter requested! An introductory preview of The Hidden Lens will be delivered to your inbox.');
-      closeSampleModal();
     }
   </script>
 </body>

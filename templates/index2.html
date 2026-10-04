@@ -565,11 +565,21 @@
     }
 
     .book-face-panel.front {
-      transform: rotateY(0deg);
+      transform: rotateY(0deg) translateZ(11px);
     }
 
     .book-face-panel.back {
-      transform: rotateY(180deg);
+      transform: rotateY(180deg) translateZ(11px);
+    }
+
+    .book-pages-side {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 22px;
+      height: 100%;
+      background: repeating-linear-gradient(90deg, #f8f6f0 0px, #f8f6f0 2px, #e8e4dc 3px, #f8f6f0 4px);
+      transform: rotateY(90deg) translateZ(11px);
     }
 
     .book-face-panel img {
@@ -647,35 +657,6 @@
       margin-bottom: 24px;
       overflow-wrap: break-word;
       word-break: break-word;
-    }
-
-    .quote-blurb-box {
-      background: var(--bg-canvas);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      padding: 22px 24px;
-      margin-bottom: 26px;
-      box-sizing: border-box;
-      position: relative;
-    }
-
-    .quote-blurb-box p {
-      font-family: 'Playfair Display', serif;
-      font-style: italic;
-      font-size: 17.5px;
-      color: var(--text-main);
-      line-height: 1.65;
-      overflow-wrap: break-word;
-      word-break: break-word;
-    }
-
-    .quote-blurb-box span {
-      display: block;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11.5px;
-      font-style: normal;
-      color: var(--text-muted);
-      margin-top: 10px;
     }
 
     .specs-row {
@@ -1447,10 +1428,6 @@
         text-align: left;
         font-size: 14.5px;
       }
-      .quote-blurb-box {
-        text-align: left;
-        padding: 18px;
-      }
       .specs-row {
         grid-template-columns: 1fr;
         gap: 10px;
@@ -1732,13 +1709,8 @@
                   <div class="book-face-panel back">
                     <img src="static/images/the-hidden-lens-back.png" alt="The Hidden Lens Back Cover">
                   </div>
+                  <div class="book-pages-side"></div>
                 </div>
-              </div>
-
-              <div class="book-button-bar">
-                <button type="button" class="btn-switch-tab active" id="btn-studio-front">Front Cover</button>
-                <button type="button" class="btn-switch-tab" id="btn-studio-back">Back Cover &amp; Author Note</button>
-                <button type="button" class="btn-switch-tab" id="btn-studio-tilt">3D Tilt View</button>
               </div>
             </div>
 
@@ -1750,13 +1722,6 @@
               <p class="book-editorial-prose">
                 Mohit Kapoor is an avid thinker &amp; writer whose dedication to non-fiction explores real-world dilemmas. In <em>The Hidden Lens</em>, he exposes how unspoken prejudices and hidden shortcuts warp decision quality in boardrooms and everyday life. By unpacking the psychological mechanics behind instinctual reactions, the book equips leaders with actionable frameworks to foster high-clarity, high-trust environments.
               </p>
-
-              <div class="quote-blurb-box">
-                <p>
-                  "Mohit Kapoor writes on non-fiction subjects to explore &amp; cater to a wide range of interests... The books written by him offer guidance, strategies, and insights to help readers improve themselves, achieve their goals, and lead more fulfilling lives."
-                </p>
-                <span>&mdash; Official Back Cover Narrative &bull; ISBN 978-81-989341-7-8</span>
-              </div>
 
               <div class="specs-row">
                 <div class="spec-card">
@@ -2125,94 +2090,106 @@
     });
 
     const studioBook = document.getElementById('studio-book-chassis');
-    const btnStudioFront = document.getElementById('btn-studio-front');
-    const btnStudioBack = document.getElementById('btn-studio-back');
-    const btnStudioTilt = document.getElementById('btn-studio-tilt');
 
     let rotY = -16;
     let rotX = 6;
-    let isTilting = false;
+    let isTilting = true;
     let tiltTimer = null;
+    let tiltStep = 0;
+    let studioResumeTimeout = null;
 
     function applyBookTransform() {
-      studioBook.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+      if (studioBook) {
+        studioBook.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+      }
     }
-    applyBookTransform();
+
+    function startBookTilting() {
+      if (tiltTimer) return;
+      isTilting = true;
+      if (studioBook) studioBook.style.transition = 'transform 0.05s linear';
+      tiltTimer = setInterval(() => {
+        tiltStep += 0.02;
+        rotY = Math.sin(tiltStep) * 40;
+        rotX = Math.cos(tiltStep * 0.75) * 10;
+        applyBookTransform();
+      }, 30);
+    }
 
     function stopBookTilting() {
-      if (isTilting) {
-        isTilting = false;
-        btnStudioTilt.classList.remove('active');
+      if (tiltTimer) {
         clearInterval(tiltTimer);
         tiltTimer = null;
       }
     }
 
-    btnStudioFront.addEventListener('click', () => {
-      stopBookTilting();
-      btnStudioFront.classList.add('active');
-      btnStudioBack.classList.remove('active');
-      rotY = -16;
-      rotX = 6;
-      applyBookTransform();
-    });
-
-    btnStudioBack.addEventListener('click', () => {
-      stopBookTilting();
-      btnStudioBack.classList.add('active');
-      btnStudioFront.classList.remove('active');
-      rotY = 164;
-      rotX = 6;
-      applyBookTransform();
-    });
-
-    btnStudioTilt.addEventListener('click', () => {
-      isTilting = !isTilting;
-      btnStudioTilt.classList.toggle('active', isTilting);
-      if (isTilting) {
-        btnStudioFront.classList.remove('active');
-        btnStudioBack.classList.remove('active');
-        let step = 0;
-        tiltTimer = setInterval(() => {
-          step += 0.028;
-          rotY = Math.sin(step) * 38;
-          rotX = Math.cos(step * 0.75) * 10;
-          applyBookTransform();
-        }, 30);
-      } else {
-        stopBookTilting();
-        btnStudioFront.classList.add('active');
-        rotY = -16;
-        rotX = 6;
-        applyBookTransform();
-      }
-    });
+    applyBookTransform();
+    startBookTilting();
 
     let isDragging = false;
     let startX = 0;
     let startY = 0;
 
-    studioBook.addEventListener('mousedown', (e) => {
+    function onStudioDragStart(clientX, clientY) {
       stopBookTilting();
+      if (studioResumeTimeout) clearTimeout(studioResumeTimeout);
       isDragging = true;
-      startX = e.clientX;
-      startY = e.clientY;
-    });
+      startX = clientX;
+      startY = clientY;
+      if (studioBook) studioBook.style.transition = 'none';
+    }
+
+    function onStudioDragMove(clientX, clientY) {
+      if (!isDragging) return;
+      const deltaX = clientX - startX;
+      const deltaY = clientY - startY;
+      rotY += deltaX * 0.5;
+      rotX = Math.max(-60, Math.min(60, rotX - deltaY * 0.4));
+      applyBookTransform();
+      startX = clientX;
+      startY = clientY;
+    }
+
+    function onStudioDragEnd() {
+      if (!isDragging) return;
+      isDragging = false;
+      if (studioBook) studioBook.style.transition = 'transform 0.4s ease-out';
+      if (isTilting) {
+        if (studioResumeTimeout) clearTimeout(studioResumeTimeout);
+        studioResumeTimeout = setTimeout(() => {
+          if (isTilting && !isDragging) {
+            tiltStep = Math.asin(Math.max(-1, Math.min(1, rotY / 40))) || 0;
+            startBookTilting();
+          }
+        }, 1500);
+      }
+    }
+
+    if (studioBook) {
+      studioBook.addEventListener('mousedown', (e) => {
+        onStudioDragStart(e.clientX, e.clientY);
+      });
+
+      studioBook.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 1) {
+          onStudioDragStart(e.touches[0].clientX, e.touches[0].clientY);
+        }
+      }, { passive: true });
+    }
 
     window.addEventListener('mousemove', (e) => {
-      if (!isDragging) return;
-      const deltaX = e.clientX - startX;
-      const deltaY = e.clientY - startY;
-      rotY += deltaX * 0.4;
-      rotX -= deltaY * 0.3;
-      applyBookTransform();
-      startX = e.clientX;
-      startY = e.clientY;
+      onStudioDragMove(e.clientX, e.clientY);
     });
 
-    window.addEventListener('mouseup', () => {
-      isDragging = false;
-    });
+    window.addEventListener('mouseup', onStudioDragEnd);
+
+    window.addEventListener('touchmove', (e) => {
+      if (isDragging && e.touches.length === 1) {
+        onStudioDragMove(e.touches[0].clientX, e.touches[0].clientY);
+      }
+    }, { passive: true });
+
+    window.addEventListener('touchend', onStudioDragEnd);
 
     function selectInquiryTopic(topic, btnEl) {
       const select = document.getElementById('dlg-topic');
