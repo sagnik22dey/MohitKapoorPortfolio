@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Response
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -59,8 +59,9 @@ async def serve_index(request: Request):
     Renders the flagship 3D curving ribbon luminary portfolio (Design 1).
     """
     return templates.TemplateResponse(
-        "index1.html",
-        {"request": request, "author": AUTHOR_DATA, "active_design": 1}
+        request=request,
+        name="index1.html",
+        context={"request": request, "author": AUTHOR_DATA, "active_design": 1}
     )
 
 @app.get("/design-1", response_class=HTMLResponse)
@@ -69,8 +70,9 @@ async def serve_design_one(request: Request):
     Dedicated route for Design 1 (Curving 3D Ribbon & Glass Luminary).
     """
     return templates.TemplateResponse(
-        "index1.html",
-        {"request": request, "author": AUTHOR_DATA, "active_design": 1}
+        request=request,
+        name="index1.html",
+        context={"request": request, "author": AUTHOR_DATA, "active_design": 1}
     )
 
 @app.get("/design-2", response_class=HTMLResponse)
@@ -79,8 +81,9 @@ async def serve_design_two(request: Request):
     Dedicated route for Design 2 (Architectural 3D Curving Studio & Carousel).
     """
     return templates.TemplateResponse(
-        "index2.html",
-        {"request": request, "author": AUTHOR_DATA, "active_design": 2}
+        request=request,
+        name="index2.html",
+        context={"request": request, "author": AUTHOR_DATA, "active_design": 2}
     )
 
 @app.get("/api/author")
@@ -113,6 +116,13 @@ async def health_check():
             "service": "mohit-kapoor-portfolio"
         }
     )
+
+@app.get("/favicon.ico", include_in_schema=False)
+async def favicon():
+    """
+    Handles browser favicon requests with 204 No Content.
+    """
+    return Response(status_code=204)
 
 @app.exception_handler(Exception)
 async def global_exception_handler(request: Request, exc: Exception):
