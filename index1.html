@@ -1,0 +1,2445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mohit Kapoor | Author &amp; Enterprise Luminary</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-base: #f7f9fc;
+      --bg-elevated: rgba(255, 255, 255, 0.88);
+      --bg-glass-card: rgba(255, 255, 255, 0.76);
+      --border-glass: rgba(255, 255, 255, 0.9);
+      --border-subtle: rgba(18, 28, 48, 0.08);
+      --text-main: #141b29;
+      --text-muted: #526077;
+      --text-soft: #8492a6;
+      --accent-gold: #c8872b;
+      --accent-gold-light: #fef4e8;
+      --accent-gold-gradient: linear-gradient(135deg, #df9b3a 0%, #aa6b18 100%);
+      --accent-ocean: #195279;
+      --accent-ocean-light: #edf5fa;
+      --shadow-soft: 0 10px 30px -10px rgba(17, 34, 68, 0.06);
+      --shadow-elevated: 0 24px 50px -12px rgba(17, 34, 68, 0.1);
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-full: 9999px;
+      --container-max: 1240px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100vw;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      line-height: 1.6;
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100vw;
+      position: relative;
+    }
+
+    #three-bg-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .app-wrapper {
+      position: relative;
+      z-index: 1;
+    }
+
+    .top-utility-bar {
+      position: fixed;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      width: calc(100% - 32px);
+      max-width: var(--container-max);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 24px;
+      background: var(--bg-elevated);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-full);
+      box-shadow: var(--shadow-soft);
+      transition: all 0.3s ease;
+    }
+
+    .brand-mark {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-main);
+    }
+
+    .brand-avatar-badge {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--accent-gold-gradient);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 15px;
+      box-shadow: 0 4px 12px rgba(200, 135, 43, 0.28);
+      flex-shrink: 0;
+    }
+
+    .brand-titles {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-name {
+      font-weight: 800;
+      font-size: 15px;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+    }
+
+    .brand-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: 13.5px;
+      font-weight: 600;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent-gold);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 22px;
+      background: var(--text-main);
+      color: #ffffff;
+      font-size: 13.5px;
+      font-weight: 600;
+      border-radius: var(--radius-full);
+      text-decoration: none;
+      transition: all 0.25s ease;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-gold);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(200, 135, 43, 0.25);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 22px;
+      background: rgba(255, 255, 255, 0.85);
+      color: var(--text-main);
+      font-size: 13.5px;
+      font-weight: 600;
+      border-radius: var(--radius-full);
+      text-decoration: none;
+      border: 1px solid var(--border-subtle);
+      backdrop-filter: blur(8px);
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+
+    .btn-secondary:hover {
+      background: #ffffff;
+      border-color: var(--accent-gold);
+      color: var(--accent-gold);
+      transform: translateY(-1px);
+    }
+
+    .hamburger-btn {
+      display: none;
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      box-shadow: var(--shadow-soft);
+      z-index: 1001;
+    }
+
+    .hamburger-btn span {
+      width: 18px;
+      height: 2px;
+      background: var(--text-main);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .hamburger-btn.is-active span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .hamburger-btn.is-active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger-btn.is-active span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    .mobile-drawer-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(20, 27, 41, 0.45);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 1999;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      overflow: hidden;
+      transition: opacity 0.35s ease, visibility 0.35s ease;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .mobile-drawer-overlay.open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .mobile-drawer-panel {
+      width: 82%;
+      max-width: 340px;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      box-shadow: -10px 0 30px rgba(0,0,0,0.12);
+      padding: 30px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .mobile-drawer-overlay.open .mobile-drawer-panel {
+      transform: translateX(0);
+    }
+
+    .drawer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border-subtle);
+      margin-bottom: 24px;
+    }
+
+    .drawer-nav-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .drawer-nav-list a {
+      text-decoration: none;
+      font-size: 16.5px;
+      font-weight: 700;
+      color: var(--text-main);
+      display: block;
+      transition: color 0.2s ease;
+    }
+
+    .drawer-nav-list a:hover {
+      color: var(--accent-gold);
+    }
+
+    .container {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .hero-section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 140px;
+      padding-bottom: 80px;
+      position: relative;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 56px;
+      align-items: center;
+    }
+
+    .hero-pretitle {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      background: rgba(200, 135, 43, 0.1);
+      border: 1px solid rgba(200, 135, 43, 0.25);
+      border-radius: var(--radius-full);
+      color: var(--accent-gold);
+      font-size: 12.5px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 54px;
+      font-weight: 700;
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+      margin-bottom: 22px;
+    }
+
+    .hero-title span {
+      font-style: italic;
+      color: var(--accent-gold);
+      font-weight: 500;
+    }
+
+    .hero-tagline {
+      font-size: 17.5px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 34px;
+      max-width: 600px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 48px;
+    }
+
+    .hero-stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      padding-top: 28px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .stat-item h3 {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+    }
+
+    .stat-item p {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 4px;
+    }
+
+    .author-stage-container {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .author-floating-kicker {
+      align-self: flex-end;
+      margin-bottom: 12px;
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      padding: 8px 16px;
+      border-radius: var(--radius-full);
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--accent-gold);
+    }
+
+    .author-card-3d {
+      width: 100%;
+      max-width: 440px;
+      background: var(--bg-glass-card);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      box-shadow: var(--shadow-elevated);
+      position: relative;
+      transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .author-portrait-frame {
+      position: relative;
+      width: 100%;
+      height: 460px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: #e6ebf1;
+    }
+
+    .author-portrait-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      transition: transform 0.6s ease;
+    }
+
+    .author-card-3d:hover .author-portrait-frame img {
+      transform: scale(1.03);
+    }
+
+    .author-floating-tag {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      right: 20px;
+      padding: 16px 20px;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .author-tag-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .author-tag-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .verified-icon {
+      width: 24px;
+      height: 24px;
+      background: #195279;
+      color: #ffffff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+    }
+
+    .section-spacing {
+      padding: 100px 0;
+      position: relative;
+    }
+
+    .section-header-centered {
+      text-align: center;
+      max-width: 740px;
+      margin: 0 auto 60px;
+    }
+
+    .section-pill {
+      display: inline-block;
+      padding: 5px 14px;
+      background: rgba(200, 135, 43, 0.08);
+      color: var(--accent-gold);
+      border-radius: var(--radius-full);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 40px;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .section-desc {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    .book-stage-container {
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-lg);
+      padding: 60px 48px;
+      box-shadow: var(--shadow-elevated);
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 56px;
+      align-items: center;
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .book-3d-scene {
+      perspective: 1200px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      width: 100%;
+    }
+
+    .book-3d-object {
+      width: 270px;
+      height: 420px;
+      max-width: 80vw;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+      cursor: grab;
+      box-shadow: 18px 24px 44px rgba(18, 28, 48, 0.16);
+      border-radius: 4px 12px 12px 4px;
+    }
+
+    .book-3d-object:active {
+      cursor: grabbing;
+    }
+
+    .book-face {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 4px 12px 12px 4px;
+      backface-visibility: hidden;
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    .book-face.front {
+      transform: rotateY(0deg);
+    }
+
+    .book-face.back {
+      transform: rotateY(180deg);
+    }
+
+    .book-face img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .book-spine-edge {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 24px;
+      height: 100%;
+      background: linear-gradient(90deg, #d3c4b0 0%, #ede6db 100%);
+      transform: rotateY(-90deg) translateZ(12px);
+    }
+
+    .book-interactive-controls {
+      display: flex;
+      gap: 12px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .btn-toggle-cover {
+      padding: 8px 18px;
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-full);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-toggle-cover.active {
+      background: var(--text-main);
+      color: #ffffff;
+      border-color: var(--text-main);
+    }
+
+    .book-content-details {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .book-badge-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .isbn-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      background: #f1f4f9;
+      padding: 4px 12px;
+      border-radius: 6px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .book-main-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: 38px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 6px;
+      line-height: 1.2;
+    }
+
+    .book-sub-heading {
+      font-size: 18px;
+      color: var(--accent-gold);
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .book-summary-text {
+      font-size: 15.5px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 26px;
+    }
+
+    .chapters-accordion {
+      margin-bottom: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .chapter-item {
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .chapter-item:hover {
+      background: #ffffff;
+      border-color: var(--accent-gold);
+    }
+
+    .chapter-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--accent-gold);
+      flex-shrink: 0;
+    }
+
+    .chapter-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-main);
+      flex: 1;
+      margin-left: 16px;
+      text-align: left;
+    }
+
+    .book-actions-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .biography-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    .bio-narrative-card {
+      background: var(--bg-glass-card);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .quote-box {
+      border-left: 4px solid var(--accent-gold);
+      padding-left: 20px;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 19px;
+      color: var(--text-main);
+      line-height: 1.6;
+      margin: 24px 0;
+    }
+
+    .pillars-column {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .pillar-card {
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      display: flex;
+      gap: 20px;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .pillar-card:hover {
+      background: #ffffff;
+      transform: translateX(6px);
+      border-color: var(--accent-gold);
+    }
+
+    .pillar-icon-box {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: var(--accent-gold-light);
+      color: var(--accent-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .pillar-title {
+      font-size: 16.5px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+
+    .pillar-text {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .enterprise-section {
+      background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(25, 82, 121, 0.04) 50%, rgba(255,255,255,0) 100%);
+    }
+
+    .company-banner {
+      background: #ffffff;
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-lg);
+      padding: 44px;
+      box-shadow: var(--shadow-elevated);
+      margin-bottom: 40px;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .company-lead-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 12px;
+    }
+
+    .company-lead-desc {
+      font-size: 15.5px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .summits-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .summit-card {
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .summit-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-elevated);
+      border-color: var(--accent-ocean);
+    }
+
+    .summit-photo-wrap {
+      width: 100%;
+      height: 180px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .summit-photo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .summit-card:hover .summit-photo-wrap img {
+      transform: scale(1.05);
+    }
+
+    .summit-content {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: space-between;
+    }
+
+    .summit-tag {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--accent-ocean);
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .summit-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+
+    .summit-desc {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .summit-meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 14px;
+      border-top: 1px solid var(--border-subtle);
+      font-size: 12px;
+      color: var(--text-soft);
+      font-weight: 600;
+    }
+
+    .contact-card-wrapper {
+      background: #ffffff;
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-lg);
+      padding: 56px 48px;
+      box-shadow: var(--shadow-elevated);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+    }
+
+    .contact-info-col h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 34px;
+      color: var(--text-main);
+      margin-bottom: 14px;
+    }
+
+    .contact-info-col p {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 30px;
+    }
+
+    .contact-direct-links {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .direct-link-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      color: var(--text-main);
+      font-size: 14.5px;
+      font-weight: 600;
+      transition: color 0.2s ease;
+    }
+
+    .direct-link-item:hover {
+      color: var(--accent-gold);
+    }
+
+    .icon-bubble {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--bg-base);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-main);
+      font-size: 16px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 8px;
+    }
+
+    .form-input, .form-textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: 14px;
+      color: var(--text-main);
+      background: #fafbfc;
+      transition: all 0.2s ease;
+    }
+
+    .form-input:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--accent-gold);
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(200, 135, 43, 0.12);
+    }
+
+    .form-textarea {
+      height: 120px;
+      resize: vertical;
+    }
+
+    .inquiry-chip-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .inquiry-chip-btn {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-full);
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-body);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .inquiry-chip-btn:hover {
+      border-color: var(--accent-gold);
+      color: var(--accent-gold);
+    }
+
+    .inquiry-chip-btn.active {
+      background: var(--text-main);
+      color: #ffffff;
+      border-color: var(--text-main);
+    }
+
+    .book-inquiry-box {
+      margin-top: 32px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-left: 4px solid var(--accent-gold);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .book-inquiry-text {
+      flex: 1;
+      min-width: 260px;
+      text-align: left;
+    }
+
+    .book-inquiry-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      font-weight: 700;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .book-inquiry-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+
+    .book-inquiry-sub {
+      font-size: 13.5px;
+      color: var(--text-body);
+      line-height: 1.6;
+    }
+
+    .enterprise-inquiry-box {
+      margin-top: 40px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-left: 4px solid var(--brand-blue);
+      border-radius: var(--radius-md);
+      padding: 26px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .enterprise-inquiry-text {
+      flex: 1;
+      min-width: 260px;
+      text-align: left;
+    }
+
+    .enterprise-inquiry-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--brand-blue);
+      font-weight: 700;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .enterprise-inquiry-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+
+    .enterprise-inquiry-sub {
+      font-size: 13.5px;
+      color: var(--text-body);
+      line-height: 1.6;
+    }
+
+    .pre-footer-banner {
+      padding: 20px 0 60px;
+      position: relative;
+    }
+
+    .pre-footer-inner {
+      background: linear-gradient(135deg, #0b111e 0%, #172439 100%);
+      border: 1px solid rgba(223, 155, 58, 0.25);
+      border-radius: var(--radius-lg);
+      padding: 46px 44px;
+      color: #ffffff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 36px;
+      box-shadow: 0 24px 50px rgba(11, 17, 30, 0.22);
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .pre-footer-text-block {
+      max-width: 680px;
+      text-align: left;
+    }
+
+    .pre-footer-pill {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: rgba(223, 155, 58, 0.2);
+      color: var(--accent-gold);
+      padding: 4px 12px;
+      border-radius: var(--radius-full);
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .pre-footer-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 12px;
+      color: #ffffff;
+    }
+
+    .pre-footer-desc {
+      font-size: 15.5px;
+      color: #cbd5e1;
+      line-height: 1.65;
+    }
+
+    .pre-footer-btn-block {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .site-footer {
+      background: #0b111e;
+      color: #f8fafc;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 70px 0 36px;
+      position: relative;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .footer-grid-top {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 50px;
+      text-align: left;
+    }
+
+    .site-footer .brand-avatar-badge {
+      background: var(--accent-gold);
+      color: #0b111e;
+    }
+
+    .site-footer .brand-name {
+      color: #ffffff;
+    }
+
+    .site-footer .brand-sub {
+      color: #94a3b8;
+    }
+
+    .footer-brand-desc {
+      font-size: 14px;
+      color: #94a3b8;
+      line-height: 1.7;
+      max-width: 360px;
+      margin-top: 14px;
+      text-align: left;
+    }
+
+    .footer-col-header {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 700;
+      color: var(--accent-gold);
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .footer-links-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+      text-align: left;
+    }
+
+    .footer-links-list a {
+      text-decoration: none;
+      font-size: 14px;
+      color: #cbd5e1;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      display: inline-block;
+    }
+
+    .footer-links-list a:hover {
+      color: #ffffff;
+      text-decoration: underline;
+    }
+
+    .footer-bottom-bar {
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 13px;
+      color: #94a3b8;
+    }
+
+    .footer-back-to-top {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 8px 18px;
+      border-radius: var(--radius-full);
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #f8fafc;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .footer-back-to-top:hover {
+      background: var(--accent-gold);
+      border-color: var(--accent-gold);
+      color: #0b111e;
+      transform: translateY(-2px);
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(18, 28, 48, 0.45);
+      backdrop-filter: blur(8px);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-card {
+      background: #ffffff;
+      border-radius: var(--radius-lg);
+      padding: 36px;
+      max-width: 520px;
+      width: 100%;
+      box-shadow: var(--shadow-elevated);
+      position: relative;
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      background: none;
+      border: none;
+      font-size: 22px;
+      cursor: pointer;
+      color: var(--text-soft);
+    }
+
+    @media (max-width: 992px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .book-stage-container {
+        grid-template-columns: 1fr;
+        padding: 44px 28px;
+        gap: 40px;
+      }
+      .biography-grid {
+        grid-template-columns: 1fr;
+      }
+      .company-banner {
+        grid-template-columns: 1fr;
+      }
+      .summits-grid {
+        grid-template-columns: 1fr;
+      }
+      .contact-card-wrapper {
+        grid-template-columns: 1fr;
+        padding: 36px 24px;
+      }
+      .footer-grid-top {
+        grid-template-columns: 1fr 1fr;
+        gap: 36px;
+      }
+      .nav-links {
+        display: none;
+      }
+      .hamburger-btn {
+        display: flex;
+      }
+      .hero-title {
+        font-size: 42px;
+      }
+      .book-content-details {
+        text-align: center;
+      }
+      .book-badge-meta {
+        justify-content: center;
+      }
+      .book-actions-group {
+        justify-content: center;
+        width: 100%;
+      }
+      .pre-footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 36px 28px;
+      }
+      .pre-footer-btn-block {
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 0 16px;
+      }
+      .top-utility-bar {
+        width: calc(100% - 20px);
+        padding: 8px 16px;
+      }
+      .nav-actions .btn-primary {
+        display: none;
+      }
+      .hero-section {
+        padding-top: 106px;
+        padding-bottom: 50px;
+      }
+      .hero-stats-row {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .hero-title {
+        font-size: 30px;
+        line-height: 1.22;
+      }
+      .hero-tagline {
+        font-size: 15px;
+        line-height: 1.65;
+      }
+      .hero-actions {
+        flex-direction: column;
+        width: 100%;
+        gap: 12px;
+      }
+      .hero-actions .btn-primary,
+      .hero-actions .btn-secondary {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+      }
+      .book-stage-container {
+        padding: 30px 16px;
+      }
+      .book-main-heading {
+        font-size: 28px;
+      }
+      .book-sub-heading {
+        font-size: 16px;
+      }
+      .chapter-item {
+        padding: 12px 14px;
+      }
+      .chapter-name {
+        font-size: 13px;
+        margin-left: 10px;
+      }
+      .book-actions-group {
+        flex-direction: column;
+        width: 100%;
+        gap: 12px;
+      }
+      .book-actions-group .btn-primary,
+      .book-actions-group .btn-secondary {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+      }
+      .book-inquiry-box {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px 16px;
+      }
+      .book-inquiry-box .btn-primary {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+      }
+      .author-floating-kicker {
+        align-self: center;
+      }
+      .enterprise-inquiry-box {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px 16px;
+      }
+      .enterprise-inquiry-box .btn-primary {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+      }
+      .pre-footer-inner {
+        padding: 28px 18px;
+      }
+      .pre-footer-heading {
+        font-size: 24px;
+      }
+      .pre-footer-desc {
+        font-size: 14px;
+      }
+      .pre-footer-btn-block {
+        flex-direction: column;
+        width: 100%;
+      }
+      .pre-footer-btn-block .btn-primary,
+      .pre-footer-btn-block .btn-secondary {
+        width: 100%;
+      }
+      .footer-grid-top {
+        grid-template-columns: 1fr 1fr;
+        gap: 28px 16px;
+        text-align: left;
+      }
+      .footer-grid-top > div:first-child {
+        grid-column: 1 / -1;
+      }
+      .footer-brand-desc {
+        max-width: 100%;
+      }
+      .footer-links-list {
+        align-items: flex-start;
+      }
+      .footer-bottom-bar {
+        flex-direction: column;
+        text-align: center;
+        gap: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="three-bg-canvas"></canvas>
+
+  <div class="app-wrapper">
+    <header class="top-utility-bar">
+      <a href="#hero" class="brand-mark">
+        <div class="brand-avatar-badge">MK</div>
+        <div class="brand-titles">
+          <span class="brand-name">Mohit Kapoor</span>
+          <span class="brand-sub">Author &amp; Director</span>
+        </div>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#hero">Overview</a></li>
+          <li><a href="#book">The Hidden Lens</a></li>
+          <li><a href="#author">Philosophy</a></li>
+          <li><a href="#enterprise">Innovative Concepts</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="#contact" class="btn-primary">Speaking Inquiry</a>
+        <button type="button" class="hamburger-btn" id="mobile-hamburger" aria-label="Toggle Navigation Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <div class="mobile-drawer-overlay" id="mobile-drawer">
+      <div class="mobile-drawer-panel">
+        <div>
+          <div class="drawer-header">
+            <div class="brand-mark">
+              <div class="brand-avatar-badge">MK</div>
+              <div class="brand-titles">
+                <span class="brand-name">Mohit Kapoor</span>
+                <span class="brand-sub">Author &amp; Director</span>
+              </div>
+            </div>
+            <button type="button" class="modal-close-btn" id="drawer-close-btn">&times;</button>
+          </div>
+
+          <ul class="drawer-nav-list">
+            <li><a href="#hero" class="drawer-link">01. Overview</a></li>
+            <li><a href="#book" class="drawer-link">02. The Hidden Lens</a></li>
+            <li><a href="#author" class="drawer-link">03. Author Philosophy</a></li>
+            <li><a href="#enterprise" class="drawer-link">04. Innovative Concepts</a></li>
+            <li><a href="#contact" class="drawer-link">05. Direct Inquiries</a></li>
+          </ul>
+        </div>
+
+        <div style="padding-top: 20px; border-top: 1px solid var(--border-subtle);">
+          <a href="#contact" class="btn-primary drawer-link" style="width: 100%; text-align: center;">Speaking Inquiry</a>
+        </div>
+      </div>
+    </div>
+
+    <main>
+      <section id="hero" class="hero-section">
+        <div class="container">
+          <div class="hero-grid">
+            <div class="hero-narrative">
+              <div class="hero-pretitle">
+                <span>Non-Fiction Author &amp; Industry Luminary</span>
+              </div>
+              <h1 class="hero-title">
+                Illuminating Hidden Biases.<br>
+                <span>Shaping Global Leadership.</span>
+              </h1>
+              <p class="hero-tagline">
+                Mohit Kapoor is an avid thinker, author of <strong>The Hidden Lens</strong>, and Founder &amp; Director of <strong>Innovative Concepts</strong>. For over 18 years, he has produced premier international oil, gas, and energy summits, translating complex industrial environments into human-centric organizational awareness.
+              </p>
+
+              <div class="hero-actions">
+                <a href="#book" class="btn-primary">Explore The Book</a>
+                <a href="#contact" class="btn-secondary">Speaking Inquiry</a>
+                <a href="https://www.linkedin.com/in/mohit-kapoor-389301a" target="_blank" rel="noopener" class="btn-secondary">LinkedIn Profile</a>
+              </div>
+
+              <div class="hero-stats-row">
+                <div class="stat-item">
+                  <h3>18+</h3>
+                  <p>Years Enterprise Leadership</p>
+                </div>
+                <div class="stat-item">
+                  <h3>9</h3>
+                  <p>In-Depth Book Chapters</p>
+                </div>
+                <div class="stat-item">
+                  <h3>4,000+</h3>
+                  <p>Global Leaders Networked</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="author-stage-container">
+              <div class="author-floating-kicker">
+                <span>Author of "The Hidden Lens"</span>
+              </div>
+
+              <div class="author-card-3d" id="tilt-author-card">
+                <div class="author-portrait-frame">
+                  <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=800&q=80" alt="Mohit Kapoor Author Portrait">
+                </div>
+                <div class="author-floating-tag">
+                  <div>
+                    <div class="author-tag-title">Mohit Kapoor</div>
+                    <div class="author-tag-sub">Founder, Innovative Concepts | Author</div>
+                  </div>
+                  <div class="verified-icon" title="Verified Profile">&#10003;</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="book" class="section-spacing">
+        <div class="container">
+          <div class="section-header-centered">
+            <span class="section-pill">Literary Publication</span>
+            <h2 class="section-title">The Hidden Lens: Understanding Unconscious Bias</h2>
+            <p class="section-desc">
+              A comprehensive inquiry into the invisible cognitive currents directing individual choices, organizational strategy, and leadership dynamics.
+            </p>
+          </div>
+
+          <div class="book-stage-container">
+            <div class="book-3d-scene">
+              <div class="book-3d-object" id="interactive-book-3d">
+                <div class="book-spine-edge"></div>
+                <div class="book-face front">
+                  <img src="static/images/the-hidden-lens-cover.png" alt="The Hidden Lens Front Cover">
+                </div>
+                <div class="book-face back">
+                  <img src="static/images/the-hidden-lens-back.png" alt="The Hidden Lens Back Cover">
+                </div>
+              </div>
+
+              <div class="book-interactive-controls">
+                <button type="button" class="btn-toggle-cover active" id="btn-show-front">Front Cover</button>
+                <button type="button" class="btn-toggle-cover" id="btn-show-back">Back Cover &amp; Blurb</button>
+                <button type="button" class="btn-toggle-cover" id="btn-toggle-3d-tilt">Auto-Tilt 3D</button>
+              </div>
+            </div>
+
+            <div class="book-content-details">
+              <div class="book-badge-meta">
+                <span class="isbn-pill">ISBN 978-81-989341-7-8</span>
+                <span class="isbn-pill">9 Practical Chapters</span>
+                <span class="isbn-pill">Applied Psychology</span>
+              </div>
+
+              <h3 class="book-main-heading">The Hidden Lens</h3>
+              <div class="book-sub-heading">Understanding Unconscious Bias</div>
+
+              <p class="book-summary-text">
+                Mohit Kapoor writes with a dedicated commitment to real-world impact. In <em>The Hidden Lens</em>, he demystifies the neuroscience and social conditioning that mold instinctual reactions. Through lucid, pointwise presentation, the book presents pragmatic strategies for leaders and teams to recognize covert blind spots, enhance objective decision-making, and create high-trust organizational environments.
+              </p>
+
+              <div class="chapters-accordion">
+                <div class="chapter-item">
+                  <span class="chapter-num">01</span>
+                  <span class="chapter-name">Anatomy of the Blind Spot: How the Mind Shortcuts Reality</span>
+                  <span>&rarr;</span>
+                </div>
+                <div class="chapter-item">
+                  <span class="chapter-num">02</span>
+                  <span class="chapter-name">The Subconscious Compass: Cultural &amp; Social Conditioning</span>
+                  <span>&rarr;</span>
+                </div>
+                <div class="chapter-item">
+                  <span class="chapter-num">03</span>
+                  <span class="chapter-name">Boardroom Biases: De-biasing Strategic High-Stakes Decisions</span>
+                  <span>&rarr;</span>
+                </div>
+                <div class="chapter-item">
+                  <span class="chapter-num">04</span>
+                  <span class="chapter-name">Inclusive Architecture: Cultivating Empathy, Awareness &amp; Trust</span>
+                  <span>&rarr;</span>
+                </div>
+              </div>
+
+              <div class="book-actions-group">
+                <button class="btn-primary" onclick="openSampleModal()">Request Sample Chapter</button>
+                <a href="#contact" class="btn-secondary" onclick="setContactTopic('The Hidden Lens - Book Bulk Purchase')">Bulk Corporate Order Inquiry</a>
+              </div>
+
+              <div class="book-inquiry-box">
+                <div class="book-inquiry-text">
+                  <span class="book-inquiry-tag">Keynote &amp; Masterclass Topic</span>
+                  <h4 class="book-inquiry-heading">Unpacking "The Hidden Lens" for Executive Boards</h4>
+                  <p class="book-inquiry-sub">
+                    Invite Mohit Kapoor to deliver customized keynote sessions on identifying cognitive heuristics and eliminating unconscious bias in high-stakes corporate decisions.
+                  </p>
+                </div>
+                <a href="#contact" class="btn-primary" onclick="setContactTopic('Keynote Speaking on Unconscious Bias')">Inquire for Keynote &rarr;</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="author" class="section-spacing">
+        <div class="container">
+          <div class="section-header-centered">
+            <span class="section-pill">The Thinker &amp; Strategist</span>
+            <h2 class="section-title">A Vision Rooted in Human Potential</h2>
+            <p class="section-desc">
+              Bridging the gap between heavy technical industries and the subtle inner workings of human judgment.
+            </p>
+          </div>
+
+          <div class="biography-grid">
+            <div class="bio-narrative-card">
+              <h3 style="font-family:'Playfair Display',serif; font-size: 26px; margin-bottom: 14px;">The Author's Calling</h3>
+              <p style="color: var(--text-muted); font-size: 15.5px; line-height: 1.7; margin-bottom: 16px;">
+                "Mohit Kapoor is an avid thinker &amp; writer. He writes on non-fiction subjects to explore &amp; cater to a wide range of interests and audiences. His dedication to think and write in the realm of non-fiction demonstrates a passion for exploring and sharing knowledge about real-world topics."
+              </p>
+              <div class="quote-box">
+                "By focusing on non-fiction, he leverages his passion for thinking and writing to inform, inspire, and empower his audience to navigate and thrive in an ever-changing world."
+              </div>
+              <p style="color: var(--text-muted); font-size: 15px; line-height: 1.65;">
+                Whether orchestrating multi-million dollar maritime and offshore summits or authoring investigative texts on psychological blind spots, Mohit's work is united by one imperative: elevating human awareness to unlock unprecedented collaborative success.
+              </p>
+            </div>
+
+            <div class="pillars-column">
+              <div class="pillar-card">
+                <div class="pillar-icon-box">&#9881;</div>
+                <div>
+                  <div class="pillar-title">Actionable Non-Fiction</div>
+                  <div class="pillar-text">
+                    Transforming dense behavioral sciences into accessible, everyday models that executives, engineers, and creatives can immediately deploy.
+                  </div>
+                </div>
+              </div>
+
+              <div class="pillar-card">
+                <div class="pillar-icon-box">&#9670;</div>
+                <div>
+                  <div class="pillar-title">Unconscious Bias Navigation</div>
+                  <div class="pillar-text">
+                    Providing tools to uncover hidden cognitive biases, ensuring leadership decisions are based on truth rather than inherited heuristics.
+                  </div>
+                </div>
+              </div>
+
+              <div class="pillar-card">
+                <div class="pillar-icon-box">&#9878;</div>
+                <div>
+                  <div class="pillar-title">Industrial Systems &amp; Culture</div>
+                  <div class="pillar-text">
+                    Drawing from 18+ years in global energy, drilling, and offshore infrastructure to illustrate how human psychology impacts safety and operational precision.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="enterprise" class="section-spacing enterprise-section">
+        <div class="container">
+          <div class="section-header-centered">
+            <span class="section-pill">Enterprise Leadership</span>
+            <h2 class="section-title">Innovative Concepts</h2>
+            <p class="section-desc">
+              18+ Years of Curating High-Impact International Oil, Gas, Marine &amp; Energy Conferences.
+            </p>
+          </div>
+
+          <div class="company-banner">
+            <div>
+              <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--accent-ocean); font-weight:700; text-transform:uppercase;">Director &amp; Founder</span>
+              <h3 class="company-lead-title">Connecting Global Energy Horizons</h3>
+              <p class="company-lead-desc">
+                Innovative Concepts is a premier research and conference production enterprise headquartered in Mumbai, operating across India, the Middle East, Southeast Asia, and North Africa. Guided by top-tier professionals, the firm produces international conferences, technical exhibitions, and specialized executive training solutions.
+              </p>
+              <div style="display:flex; gap:14px; flex-wrap:wrap;">
+                <a href="https://www.innoconcepts.co.in/" target="_blank" rel="noopener" class="btn-primary">Visit innoconcepts.co.in</a>
+                <a href="https://www.linkedin.com/company/innovativeconcepts/" target="_blank" rel="noopener" class="btn-secondary">Company LinkedIn</a>
+                <a href="#contact" class="btn-secondary" onclick="setContactTopic('Conference Partnership / Innovative Concepts')">Summit Inquiry</a>
+              </div>
+            </div>
+
+            <div style="background:var(--accent-ocean-light); border-radius:var(--radius-md); padding:28px; border:1px solid rgba(25, 82, 121, 0.12);">
+              <h4 style="font-size:16px; font-weight:700; color:var(--accent-ocean); margin-bottom:12px;">Enterprise Footprint</h4>
+              <ul style="list-style:none; display:flex; flex-direction:column; gap:10px; font-size:14px; color:var(--text-main);">
+                <li>&bull; <strong>18+ Years</strong> of continuous industry leadership</li>
+                <li>&bull; <strong>Mumbai HQ</strong> with active regional hubs in Dubai &amp; SE Asia</li>
+                <li>&bull; Producer of <strong>OJME, IDEC, and AIMC</strong> conferences</li>
+                <li>&bull; Trusted by international operators, EPCI contractors &amp; maritime authorities</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="summits-grid">
+            <div class="summit-card">
+              <div class="summit-photo-wrap">
+                <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=800&q=80" alt="OJME Dubai Summit Stage">
+              </div>
+              <div class="summit-content">
+                <div>
+                  <span class="summit-tag">MIDDLE EAST SUMMIT &bull; DUBAI</span>
+                  <h4 class="summit-title">OJME (Offshore Jack Up Middle East)</h4>
+                  <p class="summit-desc">
+                    Now in its 14th edition, OJME is the region's defining forum for offshore drilling, rig integrity, and AI-powered hazardous area technologies.
+                  </p>
+                </div>
+                <div class="summit-meta-row">
+                  <span>International Conference</span>
+                  <span>Annual Gathering</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="summit-card">
+              <div class="summit-photo-wrap">
+                <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=800&q=80" alt="IDEC Mumbai Conference Auditorium">
+              </div>
+              <div class="summit-content">
+                <div>
+                  <span class="summit-tag">INDIA SUMMIT &bull; MUMBAI</span>
+                  <h4 class="summit-title">IDEC (India Drilling &amp; Exploration)</h4>
+                  <p class="summit-desc">
+                    With 19 editions completed, IDEC stands as India's most reputed upstream oil and gas conference, bringing together operators, regulators, and innovators.
+                  </p>
+                </div>
+                <div class="summit-meta-row">
+                  <span>The Lalit Hotel, Mumbai</span>
+                  <span>19 Editions</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="summit-card">
+              <div class="summit-photo-wrap">
+                <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80" alt="AIMC Asset Integrity Engineering">
+              </div>
+              <div class="summit-content">
+                <div>
+                  <span class="summit-tag">TECHNICAL FORUM &bull; GLOBAL</span>
+                  <h4 class="summit-title">AIMC (Asset Integrity Management)</h4>
+                  <p class="summit-desc">
+                    Dedicated to lifecycle management, subsea structures, and reliability engineering across critical offshore and onshore energy assets.
+                  </p>
+                </div>
+                <div class="summit-meta-row">
+                  <span>B2B Engineering</span>
+                  <span>Technical Program</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="enterprise-inquiry-box">
+            <div class="enterprise-inquiry-text">
+              <span class="enterprise-inquiry-tag">Summit Partnerships &bull; Directorship</span>
+              <h4 class="enterprise-inquiry-heading">Partner with Innovative Concepts on Global Summits</h4>
+              <p class="enterprise-inquiry-sub">
+                Explore headline sponsorships, technical delegations, and industry forum leadership across OJME Dubai, IDEC Mumbai, and AIMC global summits.
+              </p>
+            </div>
+            <a href="#contact" class="btn-primary" onclick="setContactTopic('Conference Partnership / Innovative Concepts')">Inquire for Partnership &rarr;</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="section-spacing">
+        <div class="container">
+          <div class="contact-card-wrapper">
+            <div class="contact-info-col">
+              <span class="section-pill">Connect &amp; Collaborate</span>
+              <h3>Engage with Mohit Kapoor</h3>
+              <p>
+                Inquire about keynote speaking, panel moderation, executive workshops on unconscious bias, bulk book orders, or strategic conference partnerships.
+              </p>
+
+              <div class="contact-direct-links">
+                <a href="https://www.linkedin.com/in/mohit-kapoor-389301a" target="_blank" rel="noopener" class="direct-link-item">
+                  <div class="icon-bubble">in</div>
+                  <div>
+                    <div>LinkedIn Direct</div>
+                    <small style="color:var(--text-soft); font-weight:normal;">mohit-kapoor-389301a</small>
+                  </div>
+                </a>
+
+                <a href="https://www.innoconcepts.co.in/" target="_blank" rel="noopener" class="direct-link-item">
+                  <div class="icon-bubble">&#127760;</div>
+                  <div>
+                    <div>Corporate Portal</div>
+                    <small style="color:var(--text-soft); font-weight:normal;">www.innoconcepts.co.in</small>
+                  </div>
+                </a>
+
+                <div class="direct-link-item">
+                  <div class="icon-bubble">&#9906;</div>
+                  <div>
+                    <div>Headquarters</div>
+                    <small style="color:var(--text-soft); font-weight:normal;">Goregaon West, Mumbai, India</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div class="inquiry-chip-group">
+                <button type="button" class="inquiry-chip-btn active" onclick="setContactTopic('Keynote Speaking on Unconscious Bias', this)">Keynote Address</button>
+                <button type="button" class="inquiry-chip-btn" onclick="setContactTopic('The Hidden Lens - Book Bulk Purchase', this)">Bulk Book Purchase</button>
+                <button type="button" class="inquiry-chip-btn" onclick="setContactTopic('Conference Partnership / Innovative Concepts', this)">Summit Partnership</button>
+                <button type="button" class="inquiry-chip-btn" onclick="setContactTopic('Media or Literary Interview', this)">Media Interview</button>
+              </div>
+
+              <form id="contact-form" onsubmit="handleFormSubmit(event)">
+                <div class="form-group">
+                  <label class="form-label" for="sender-name">Your Full Name</label>
+                  <input type="text" id="sender-name" class="form-input" placeholder="e.g. Elena Vance" required>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="sender-email">Work Email Address</label>
+                  <input type="email" id="sender-email" class="form-input" placeholder="e.g. elena@energycorp.com" required>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="sender-subject">Nature of Inquiry</label>
+                  <select id="sender-subject" class="form-input" required>
+                    <option value="Keynote Speaking on Unconscious Bias">Keynote Speaking on Unconscious Bias</option>
+                    <option value="The Hidden Lens - Book Bulk Purchase">The Hidden Lens - Book Bulk Purchase</option>
+                    <option value="Conference Partnership / Innovative Concepts">Conference Partnership / Innovative Concepts</option>
+                    <option value="Media or Literary Interview">Media or Literary Interview</option>
+                    <option value="General Leadership Advisory">General Leadership Advisory</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="sender-message">Message or Request Details</label>
+                  <textarea id="sender-message" class="form-textarea" placeholder="Tell us about your event, audience, or inquiry..." required></textarea>
+                </div>
+
+                <button type="submit" class="btn-primary" style="width:100%; padding:14px;" id="btn-submit-form">Send Inquiry</button>
+                <div id="form-feedback-message" style="margin-top:12px; font-size:13.5px; text-align:center; display:none;"></div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="pre-footer-banner">
+      <div class="container">
+        <div class="pre-footer-inner">
+          <div class="pre-footer-text-block">
+            <span class="pre-footer-pill">Executive Engagements</span>
+            <h3 class="pre-footer-heading">Bring Mohit Kapoor's Keynotes &amp; Industry Summits to Your Organization</h3>
+            <p class="pre-footer-desc">
+              Engage directly for board-level addresses on unconscious bias, cognitive heuristics, or corporate collaboration across international energy summits.
+            </p>
+          </div>
+          <div class="pre-footer-btn-block">
+            <a href="#contact" class="btn-primary" onclick="setContactTopic('Keynote Speaking on Unconscious Bias')">Speaking Inquiry &rarr;</a>
+            <a href="https://www.linkedin.com/in/mohit-kapoor-389301a" target="_blank" rel="noopener" class="btn-secondary">LinkedIn Profile</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-grid-top">
+          <div>
+            <div class="brand-mark" style="margin-bottom: 14px;">
+              <div class="brand-avatar-badge">MK</div>
+              <div class="brand-titles">
+                <span class="brand-name">Mohit Kapoor</span>
+                <span class="brand-sub">Author &amp; Enterprise Director</span>
+              </div>
+            </div>
+            <p class="footer-brand-desc">
+              Author of <em>The Hidden Lens: Understanding Unconscious Bias</em> and Founder &amp; Director of Innovative Concepts. Elevating cognitive clarity and international industrial collaboration across India, the Middle East, and worldwide.
+            </p>
+            <div style="margin-top: 14px; font-size: 12px; color: #94a3b8; font-family: 'JetBrains Mono', monospace;">
+              Hubs: Mumbai, India &bull; Dubai, UAE
+            </div>
+          </div>
+
+          <div>
+            <h4 class="footer-col-header">Literary Work</h4>
+            <ul class="footer-links-list">
+              <li><a href="#book">The Hidden Lens</a></li>
+              <li><a href="#book">9 Core Chapters</a></li>
+              <li><a href="#book">Cognitive Bias Models</a></li>
+              <li><a href="#book">ISBN 978-81-989341-7-8</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="footer-col-header">Enterprise &amp; Summits</h4>
+            <ul class="footer-links-list">
+              <li><a href="#enterprise">Innovative Concepts</a></li>
+              <li><a href="#enterprise">14th OJME Dubai</a></li>
+              <li><a href="#enterprise">19th IDEC Mumbai</a></li>
+              <li><a href="#enterprise">AIMC Global Summit</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="footer-col-header">Direct Inquiry</h4>
+            <ul class="footer-links-list">
+              <li><a href="#contact" onclick="setContactTopic('Keynote Speaking on Unconscious Bias')">Keynote Bookings</a></li>
+              <li><a href="#contact" onclick="setContactTopic('The Hidden Lens - Book Bulk Purchase')">Bulk Book Purchase</a></li>
+              <li><a href="#contact" onclick="setContactTopic('Conference Partnership / Innovative Concepts')">Summit Sponsorships</a></li>
+              <li><a href="https://www.linkedin.com/in/mohit-kapoor-389301a" target="_blank" rel="noopener">LinkedIn Direct</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom-bar">
+          <div>
+            &copy; 2026 Mohit Kapoor &bull; Innovative Concepts &bull; All Rights Reserved
+          </div>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #94a3b8;">
+            ISBN: 978-81-989341-7-8
+          </div>
+          <button type="button" class="footer-back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+            <span>&uarr; Back to Top</span>
+          </button>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <div class="modal-overlay" id="sample-modal">
+    <div class="modal-card">
+      <button class="modal-close-btn" onclick="closeSampleModal()">&times;</button>
+      <h3 style="font-family:'Playfair Display',serif; font-size:24px; margin-bottom:8px; color:var(--text-main);">Request Sample Chapter</h3>
+      <p style="font-size:14px; color:var(--text-muted); margin-bottom:20px;">
+        Read the preface and Chapter 1: <em>"Anatomy of the Blind Spot: How the Mind Shortcuts Reality"</em> from <strong>The Hidden Lens</strong> by Mohit Kapoor.
+      </p>
+      <form onsubmit="handleSampleDownload(event)">
+        <div class="form-group">
+          <label class="form-label">Full Name</label>
+          <input type="text" class="form-input" id="sample-name" placeholder="Your Name" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" class="form-input" id="sample-email" placeholder="Your Email" required>
+        </div>
+        <button type="submit" class="btn-primary" style="width:100%; padding:12px;">Get Reading Sample</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+    (function init3DBackground() {
+      const canvas = document.getElementById('three-bg-canvas');
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 1000);
+      camera.position.z = 36;
+
+      const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.85);
+      scene.add(ambientLight);
+
+      const dirLight1 = new THREE.DirectionalLight(0xdf9b3a, 1.1);
+      dirLight1.position.set(25, 25, 20);
+      scene.add(dirLight1);
+
+      const dirLight2 = new THREE.DirectionalLight(0x195279, 0.9);
+      dirLight2.position.set(-25, -15, 15);
+      scene.add(dirLight2);
+
+      const dirLight3 = new THREE.DirectionalLight(0xfef4e8, 0.7);
+      dirLight3.position.set(0, 30, -10);
+      scene.add(dirLight3);
+
+      const ribbons = [];
+      const ribbonSpecs = [
+        { color: 0xdf9b3a, width: 0.55, opacity: 0.45, speed: 0.28, phase: 0 },
+        { color: 0x24628f, width: 0.42, opacity: 0.35, speed: 0.22, phase: 1.2 },
+        { color: 0xe8caa4, width: 0.35, opacity: 0.4, speed: 0.32, phase: 2.4 },
+        { color: 0x1a73e8, width: 0.28, opacity: 0.25, speed: 0.18, phase: 3.6 },
+        { color: 0xf59e0b, width: 0.48, opacity: 0.38, speed: 0.25, phase: 4.8 },
+        { color: 0x64748b, width: 0.22, opacity: 0.22, speed: 0.15, phase: 5.5 }
+      ];
+
+      ribbonSpecs.forEach((spec, r) => {
+        const points = [];
+        const length = 60;
+        for (let i = 0; i <= length; i++) {
+          const t = (i / length) * 60 - 30;
+          points.push(new THREE.Vector3(
+            t,
+            Math.sin(i * 0.22 + spec.phase) * 5,
+            (r - 2.5) * 6 + Math.cos(i * 0.18 + spec.phase) * 3
+          ));
+        }
+        const curve = new THREE.CatmullRomCurve3(points);
+        const geometry = new THREE.TubeGeometry(curve, 120, spec.width, 14, false);
+        const material = new THREE.MeshStandardMaterial({
+          color: spec.color,
+          roughness: 0.3,
+          metalness: 0.25,
+          transparent: true,
+          opacity: spec.opacity
+        });
+        const mesh = new THREE.Mesh(geometry, material);
+        scene.add(mesh);
+        ribbons.push({ mesh, spec });
+      });
+
+      const particleGeo = new THREE.BufferGeometry();
+      const particleCount = 180;
+      const posArray = new Float32Array(particleCount * 3);
+
+      for (let i = 0; i < particleCount * 3; i += 3) {
+        posArray[i] = (Math.random() - 0.5) * 75;
+        posArray[i + 1] = (Math.random() - 0.5) * 50;
+        posArray[i + 2] = (Math.random() - 0.5) * 40;
+      }
+      particleGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+      const particleMat = new THREE.PointsMaterial({
+        size: 0.32,
+        color: 0xdf9b3a,
+        transparent: true,
+        opacity: 0.45
+      });
+      const particleField = new THREE.Points(particleGeo, particleMat);
+      scene.add(particleField);
+
+      let mouseX = 0;
+      let mouseY = 0;
+      window.addEventListener('mousemove', (e) => {
+        mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+        mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+      });
+
+      let clock = new THREE.Clock();
+
+      function animate() {
+        requestAnimationFrame(animate);
+        const elapsed = clock.getElapsedTime();
+
+        ribbons.forEach((ribbon, idx) => {
+          ribbon.mesh.rotation.x = Math.sin(elapsed * ribbon.spec.speed + ribbon.spec.phase) * 0.22 + mouseY * 0.06;
+          ribbon.mesh.rotation.y = Math.cos(elapsed * (ribbon.spec.speed * 0.8) + ribbon.spec.phase) * 0.26 + mouseX * 0.08;
+          ribbon.mesh.position.y = Math.sin(elapsed * 0.35 + idx) * 1.6;
+        });
+
+        particleField.rotation.y = elapsed * 0.035;
+        particleField.rotation.x = elapsed * 0.015;
+
+        renderer.render(scene, camera);
+      }
+      animate();
+
+      window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+    })();
+
+    const mobileHamburger = document.getElementById('mobile-hamburger');
+    const mobileDrawer = document.getElementById('mobile-drawer');
+    const drawerCloseBtn = document.getElementById('drawer-close-btn');
+    const drawerLinks = document.querySelectorAll('.drawer-link');
+
+    function toggleMobileDrawer(open) {
+      if (open) {
+        mobileDrawer.classList.add('open');
+        mobileHamburger.classList.add('is-active');
+      } else {
+        mobileDrawer.classList.remove('open');
+        mobileHamburger.classList.remove('is-active');
+      }
+    }
+
+    mobileHamburger.addEventListener('click', () => {
+      const isOpen = mobileDrawer.classList.contains('open');
+      toggleMobileDrawer(!isOpen);
+    });
+
+    drawerCloseBtn.addEventListener('click', () => {
+      toggleMobileDrawer(false);
+    });
+
+    drawerLinks.forEach((link) => {
+      link.addEventListener('click', () => {
+        toggleMobileDrawer(false);
+      });
+    });
+
+    mobileDrawer.addEventListener('click', (e) => {
+      if (e.target === mobileDrawer) {
+        toggleMobileDrawer(false);
+      }
+    });
+
+    const bookElem = document.getElementById('interactive-book-3d');
+    const btnShowFront = document.getElementById('btn-show-front');
+    const btnShowBack = document.getElementById('btn-show-back');
+    const btnToggleAutoTilt = document.getElementById('btn-toggle-3d-tilt');
+
+    let currentRotationY = -18;
+    let currentRotationX = 8;
+    let autoTiltActive = false;
+    let autoTiltTimer = null;
+
+    function updateBookTransform() {
+      bookElem.style.transform = `rotateX(${currentRotationX}deg) rotateY(${currentRotationY}deg)`;
+    }
+    updateBookTransform();
+
+    function stopAutoTilt() {
+      if (autoTiltActive) {
+        autoTiltActive = false;
+        btnToggleAutoTilt.classList.remove('active');
+        clearInterval(autoTiltTimer);
+        autoTiltTimer = null;
+      }
+    }
+
+    btnShowFront.addEventListener('click', () => {
+      stopAutoTilt();
+      btnShowFront.classList.add('active');
+      btnShowBack.classList.remove('active');
+      currentRotationY = -18;
+      currentRotationX = 6;
+      updateBookTransform();
+    });
+
+    btnShowBack.addEventListener('click', () => {
+      stopAutoTilt();
+      btnShowBack.classList.add('active');
+      btnShowFront.classList.remove('active');
+      currentRotationY = 162;
+      currentRotationX = 6;
+      updateBookTransform();
+    });
+
+    btnToggleAutoTilt.addEventListener('click', () => {
+      autoTiltActive = !autoTiltActive;
+      btnToggleAutoTilt.classList.toggle('active', autoTiltActive);
+      if (autoTiltActive) {
+        btnShowFront.classList.remove('active');
+        btnShowBack.classList.remove('active');
+        let step = 0;
+        autoTiltTimer = setInterval(() => {
+          step += 0.03;
+          currentRotationY = Math.sin(step) * 45;
+          currentRotationX = Math.cos(step * 0.7) * 12;
+          updateBookTransform();
+        }, 30);
+      } else {
+        stopAutoTilt();
+        btnShowFront.classList.add('active');
+        currentRotationY = -18;
+        currentRotationX = 8;
+        updateBookTransform();
+      }
+    });
+
+    let isDragging = false;
+    let startX = 0;
+    let startY = 0;
+
+    bookElem.addEventListener('mousedown', (e) => {
+      stopAutoTilt();
+      isDragging = true;
+      startX = e.clientX;
+      startY = e.clientY;
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      const deltaX = e.clientX - startX;
+      const deltaY = e.clientY - startY;
+      currentRotationY += deltaX * 0.4;
+      currentRotationX -= deltaY * 0.3;
+      updateBookTransform();
+      startX = e.clientX;
+      startY = e.clientY;
+    });
+
+    window.addEventListener('mouseup', () => {
+      isDragging = false;
+    });
+
+    const authorCard = document.getElementById('tilt-author-card');
+    if (authorCard) {
+      authorCard.addEventListener('mousemove', (e) => {
+        const rect = authorCard.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        authorCard.style.transform = `perspective(1000px) rotateY(${x * 0.04}deg) rotateX(${-y * 0.04}deg) translateY(-4px)`;
+      });
+      authorCard.addEventListener('mouseleave', () => {
+        authorCard.style.transform = `perspective(1000px) rotateY(0deg) rotateX(0deg) translateY(0)`;
+      });
+    }
+
+    function setContactTopic(topic, btnEl) {
+      const select = document.getElementById('sender-subject');
+      if (select) {
+        select.value = topic;
+      }
+      const chips = document.querySelectorAll('.inquiry-chip-btn');
+      chips.forEach(c => {
+        if (c.textContent.trim().toLowerCase().includes(topic.toLowerCase().slice(0, 7))) {
+          c.classList.add('active');
+        } else {
+          c.classList.remove('active');
+        }
+      });
+      if (btnEl) {
+        chips.forEach(c => c.classList.remove('active'));
+        btnEl.classList.add('active');
+      }
+      const contactSec = document.getElementById('contact');
+      if (contactSec) {
+        contactSec.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    async function handleFormSubmit(event) {
+      event.preventDefault();
+      const btn = document.getElementById('btn-submit-form');
+      const feedback = document.getElementById('form-feedback-message');
+      const name = document.getElementById('sender-name').value;
+      const email = document.getElementById('sender-email').value;
+      const subject = document.getElementById('sender-subject').value;
+      const message = document.getElementById('sender-message').value;
+
+      btn.disabled = true;
+      btn.innerText = 'Sending...';
+
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, subject, message })
+        });
+        const data = await res.json();
+        feedback.style.display = 'block';
+        feedback.style.color = '#059669';
+        feedback.innerText = data.message || 'Thank you! Your message has been received.';
+        document.getElementById('contact-form').reset();
+      } catch (err) {
+        feedback.style.display = 'block';
+        feedback.style.color = '#ba1a1a';
+        feedback.innerText = 'Unable to send inquiry right now. Please connect via LinkedIn.';
+      } finally {
+        btn.disabled = false;
+        btn.innerText = 'Send Inquiry';
+      }
+    }
+
+    function openSampleModal() {
+      document.getElementById('sample-modal').style.display = 'flex';
+    }
+
+    function closeSampleModal() {
+      document.getElementById('sample-modal').style.display = 'none';
+    }
+
+    function handleSampleDownload(e) {
+      e.preventDefault();
+      alert('Sample Chapter requested! An introductory preview of The Hidden Lens will be delivered to your inbox.');
+      closeSampleModal();
+    }
+  </script>
+</body>
+</html>
